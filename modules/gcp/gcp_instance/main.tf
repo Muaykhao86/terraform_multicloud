@@ -3,7 +3,7 @@ provider "google" {
 }
 
 resource "google_compute_instance" "vm" {
-  count = var.instances
+  count                   = var.instances
   name                    = "VM-${count.index}"
   machine_type            = "e2-micro"
   zone                    = "europe-west2-a"

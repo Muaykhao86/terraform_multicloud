@@ -19,6 +19,6 @@ module "azure" {
 module "gcp" {
   source = "./modules/gcp/gcp_instance"
   # selects whether the module is deployed
-  count                   = var.enable_gcp ? 1 : 0
-  instances               = var.instance_count
+  count     = var.enable_gcp ? 1 : 0
+  instances = var.instance_count
 }
