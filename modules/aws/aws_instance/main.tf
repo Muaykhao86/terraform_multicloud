@@ -2,6 +2,11 @@ provider "aws" {
   region = var.region
 }
 
+locals {
+  name = value
+}
+
+
 resource "aws_instance" "instance" {
   count         = var.instances
   ami           = var.ami_id

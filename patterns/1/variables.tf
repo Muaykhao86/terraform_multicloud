@@ -1,3 +1,5 @@
+//General variables
+
 variable "enable_aws" {
   description = "Enable / Disable AWS instances"
   type        = bool
@@ -22,10 +24,14 @@ variable "instance_count" {
   default     = 2
 }
 
+//AWS variables
+
 variable "aws_subnet" {
   description = "Subnet ID for AWS instances"
   type        = string
 }
+
+//Azure variables
 
 variable "resource_group_name" {
   description = "Resource Group Name for Azure instances"
@@ -37,5 +43,7 @@ variable "resource_group_location" {
   description = "Resource Group Location for Azure instances"
   type        = string
   default     = "uksouth"
-
 }
+
+//GCP variables
+

@@ -5,3 +5,7 @@ output "aws_instances" {
 output "azure_instances" {
   value = module.azure.*.instance_name
 }
+
+output "gcp_instances" {
+  value = module.gcp.*.instance_name
+}
