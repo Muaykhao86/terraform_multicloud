@@ -10,13 +10,14 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.102"
     }
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.28.0"
+    }
   }
 }
 
-provider "aws" {
-  region = "eu-west-2"
-}
 
-provider "azurerm" {
-  features {}
-}
+
+
+

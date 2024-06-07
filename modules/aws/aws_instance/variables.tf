@@ -7,12 +7,17 @@ variable "ami_id" {
 }
 
 variable "instance_type" {
-  type        = string
-  default     = "t3.micro"
+  type    = string
+  default = "t3.micro"
 }
 
 variable "subnet_id" {
   type = string
+}
+
+variable "region" {
+  type    = string
+  default = "eu-west-2"
 }
 
 

@@ -10,6 +10,12 @@ variable "enable_azure" {
   default     = true
 }
 
+variable "enable_gcp" {
+  description = "Enable / Disable GCP instances"
+  type        = bool
+  default     = true
+}
+
 variable "instance_count" {
   description = "Number of instances to create"
   type        = number
