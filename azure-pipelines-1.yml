@@ -27,7 +27,8 @@ steps:
     inputs:
       provider: 'gcp'
       command: 'custom'
-      customCommand: 'workspace new ${{ parameters.workspace }}'
+      customCommand: 'workspace '
+      commandOptions: 'new ${{ parameters.workspace }}'
       outputTo: 'console'
       environmentServiceNameGCP: 'ado-terraform'
 
@@ -35,7 +36,8 @@ steps:
     inputs:
       provider: 'gcp'
       command: 'custom'
-      customCommand: 'workspace select'
+      customCommand: 'workspace'
+      commandOptions: 'select'
       outputTo: 'console'
       environmentServiceNameGCP: 'ado-terraform'
 
