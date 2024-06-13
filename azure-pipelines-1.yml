@@ -37,7 +37,7 @@ steps:
       provider: 'gcp'
       command: 'custom'
       customCommand: 'workspace'
-      commandOptions: 'select'
+      commandOptions: 'list'
       outputTo: 'console'
       environmentServiceNameGCP: 'ado-terraform'
 
