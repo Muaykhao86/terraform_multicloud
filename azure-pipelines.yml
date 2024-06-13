@@ -8,9 +8,9 @@ parameters:
   - name: testvar1
     type: string
     values:
-    - windows-latest
-    - ubuntu-latest
-    - macOS-latest
+      - windows-latest
+      - ubuntu-latest
+      - macOS-latest
     default: ubuntu-latest
 
 variables: 
@@ -18,15 +18,15 @@ variables:
     value: initialVal
    
 steps:
-- script: echo ${{ parameters.testvar1}}
+- script: echo ${{ parameters.testvar1 }}
   displayName: 'Read parameter value'
 
-- script: echo ${{ variables.testvar2}}
-  displayName: 'Read parameter value 2'
+- script: echo $(testvar2)
+  displayName: 'Read variable value 2'
 
 - script: |
-    echo "##vso[task.setvariable  variable=testvar2;] secondVal"
-  displayName: 'Set parameter value'
+    echo "##vso[task.setvariable variable=testvar2]secondVal"
+  displayName: 'Set variable value'
 
-- script: echo ${{ variables.testvar2}}
-  displayName: 'Read parameter value 3'
+- script: echo $(testvar2)
+  displayName: 'Read variable value 3'
