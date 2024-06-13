@@ -20,5 +20,24 @@ steps:
         cd patterns
         ls -ltr
 
+  - task: TerraformInstaller@1
+    inputs:
+      terraformVersion: 'latest'
+  - task: TerraformTaskV4@4
+    inputs:
+      provider: 'gcp'
+      command: 'custom'
+      customCommand: 'workspace new ${{ parameters.workspace }}'
+      outputTo: 'console'
+      environmentServiceNameGCP: 'ado-terraform'
+
+  - task: TerraformTaskV4@4
+    inputs:
+      provider: 'gcp'
+      command: 'custom'
+      customCommand: 'workspace select'
+      outputTo: 'console'
+      environmentServiceNameGCP: 'ado-terraform'
+
   
   
