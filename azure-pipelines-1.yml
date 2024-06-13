@@ -3,11 +3,22 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+parameters:
+  - name: workspace
+    type: string
+    displayName: Please enter the workspace to deploy to
+  - name: pattern
+    type: string
+    displayName: Please select the pattern to deploy
+
+
 steps:
   - task: Bash@3
     inputs:
       targetType: 'inline'
       script: |
-        ls -ltr
         cd patterns
         ls -ltr
+
+  
+  
