@@ -3,7 +3,6 @@ variables {
 }
 
 run "valid_ec2_type" {
-
   command = plan
 
   assert {
