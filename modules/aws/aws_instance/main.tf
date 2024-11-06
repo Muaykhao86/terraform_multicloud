@@ -14,6 +14,6 @@ resource "aws_instance" "instance" {
   subnet_id     = var.subnet_id
 
   tags = {
-      Name = "instance-${count.index}"
+    Name = "instance-${count.index}"
   }
 }
