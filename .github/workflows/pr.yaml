@@ -27,6 +27,12 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -recursive -check
+
+      - name: Terraform Test
+        id: test
+        run: |
+          ls
+          terraform test -verbose -test-directory=modules/aws/aws_instance
      
       - name: token
         id: token
