@@ -27,6 +27,10 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -recursive -check
+
+      - name: Terraform Test
+        id: test
+        run: terraform test
      
       - name: token
         id: token
