@@ -22,3 +22,8 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
+     
+      - name: token
+        id: token
+        if: success() || failure()
+        run: echo {{ secrets.GITHUB_TOKEN }}
