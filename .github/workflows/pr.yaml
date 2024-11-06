@@ -19,6 +19,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Move to dir
+        run: |
+          cd patterns
+
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
