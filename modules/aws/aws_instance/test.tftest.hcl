@@ -3,7 +3,7 @@ variables {
 }
 
 run "valid_ec2_type" {
-  command = "plan"
+  command = plan
 
   assert {
     condition     = aws_instance.instance.instance_type == "t3.micro"
