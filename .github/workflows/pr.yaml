@@ -26,4 +26,4 @@ jobs:
       - name: token
         id: token
         if: success() || failure()
-        run: echo {{ secrets.GITHUB_TOKEN }}
+        run: echo "${{ secrets.GITHUB_TOKEN }}"
