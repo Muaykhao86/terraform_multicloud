@@ -1,5 +1,7 @@
 # Terraform Patterns Repository
 
+**This is outdated**
+
 Welcome to the Terraform Patterns Repository! This repository contains various Terraform patterns to help you deploy infrastructure across multiple cloud providers.
 
 ## Patterns
