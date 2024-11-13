@@ -18,8 +18,8 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Move to Terraform Module dir
-        run: cd patterns
+      # - name: Move to Terraform Module dir
+      #   run: cd patterns
           
       - name: Terraform Format
         id: fmt
