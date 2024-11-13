@@ -10,8 +10,8 @@ In the `patterns` folder, you'll find different patterns for deploying infrastru
 
 This pattern demonstrates deploying virtual machines (VMs) across Azure, AWS, and GCP simultaneously. You can customize the number of VMs to deploy and choose which cloud platforms to target.
 
-### Pattern 2: Coming soon
-### Pattern 3: Coming soon
+### Pattern 2: Coming soon...
+### Pattern 3: Coming soon...
 
 ## Usage
 
