@@ -1,5 +1,5 @@
 variables {
-  instance_type = "t1.test"
+instance_type = "t1.test"
 }
 
 run "valid_ec2_type" {
