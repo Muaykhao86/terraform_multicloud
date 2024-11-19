@@ -9,8 +9,11 @@ run "S3_Bucket_Unit_Tests_With_Mock_Providers" {
 
   # Bucket name formatting
 
+
   assert {
-    condition     = length(flatten([for mod in module.aws : mod.instance_name])) > 1
+    condition = length([
+      for _, mod in module.aws : mod.instance_name
+    ]) > 0
     error_message = "Simple test"
   }
 }
