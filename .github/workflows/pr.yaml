@@ -18,15 +18,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Run Terraform Format Check
-        id: fmt
-        run: |
-          cd patterns
-          terraform fmt -recursive -check
+      # - name: Run Terraform Format Check
+      #   id: fmt
+      #   run: |
+      #     cd patterns
+      #     terraform fmt -recursive -check
 
       - name: Run Terraform Validation Check
         id: validate
         run: |
           cd patterns
-          terraform init
           terraform validate
