@@ -37,4 +37,3 @@ jobs:
           ls -a
           cd patterns/1
           terraform test
-
