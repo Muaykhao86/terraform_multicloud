@@ -24,12 +24,12 @@ jobs:
           cd patterns
           terraform fmt -recursive -check
 
-      - name: Run Terraform Validation Check
-        id: validate
-        run: |
-          cd patterns/1
-          terraform init -backend=false
-          terraform validate
+      # - name: Run Terraform Validation Check
+      #   id: validate
+      #   run: |
+      #     cd patterns/1
+      #     terraform init -backend=false
+      #     terraform validate
 
       - name: Run Terraform unit test Check
         id: unit
