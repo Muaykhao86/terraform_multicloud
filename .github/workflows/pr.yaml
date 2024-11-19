@@ -38,7 +38,7 @@ jobs:
           terraform validate
           
       - name: Run Terraform unit test Check
-        id: unit
+        id: unit2
         run: |
           cd patterns/1
           terraform init -backend=false
