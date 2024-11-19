@@ -7,5 +7,5 @@ output "ext_ip" {
 }
 
 output "instance_name" {
-  value = aoogle_compute_instance.vm.*.name
+  value = google_compute_instance.vm.*.name
 }
