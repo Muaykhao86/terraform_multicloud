@@ -23,4 +23,9 @@ jobs:
         run: |
           cd patterns
           terraform fmt -recursive -check
-    
+
+      - name: Run Terraform Validation Check
+        id: validate
+        run: |
+          cd patterns
+          terraform validate
