@@ -1,10 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
-locals {
-  name = value
-}
 
 
 resource "aws_instance" "instance" {
