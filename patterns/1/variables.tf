@@ -9,19 +9,19 @@ variable "enable_aws" {
 variable "enable_azure" {
   description = "Enable / Disable Azure instances"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "enable_gcp" {
   description = "Enable / Disable GCP instances"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "instance_count" {
   description = "Number of instances to create"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 //AWS variables
