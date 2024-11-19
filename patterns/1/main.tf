@@ -1,5 +1,5 @@
 module "aws" {
-  source = "./modules/aws/aws_instance"
+  source = "../../modules/aws/aws_instance"
   # selects whether the module is deployed
   count     = var.enable_aws ? 1 : 0
   instances = var.instance_count
@@ -8,7 +8,7 @@ module "aws" {
 }
 
 module "azure" {
-  source = "./modules/azure/azure_instance"
+  source = "../../modules/azure/azure_instance"
   # selects whether the module is deployed
   count                   = var.enable_azure ? 1 : 0
   resource_group_name     = var.resource_group_name
@@ -17,7 +17,7 @@ module "azure" {
 }
 
 module "gcp" {
-  source = "./modules/gcp/gcp_instance"
+  source = "../../modules/gcp/gcp_instance"
   # selects whether the module is deployed
   count     = var.enable_gcp ? 1 : 0
   instances = var.instance_count

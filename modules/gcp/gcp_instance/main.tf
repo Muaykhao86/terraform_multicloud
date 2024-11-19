@@ -1,6 +1,3 @@
-provider "google" {
-  project = var.project
-}
 
 resource "google_compute_instance" "vm" {
   count                   = var.instances
