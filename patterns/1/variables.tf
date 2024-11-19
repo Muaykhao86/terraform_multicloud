@@ -29,6 +29,7 @@ variable "instance_count" {
 variable "aws_subnet" {
   description = "Subnet ID for AWS instances"
   type        = string
+  default = "0.0.0.0/24"
 }
 
 //Azure variables
