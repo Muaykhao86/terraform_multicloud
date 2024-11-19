@@ -35,4 +35,4 @@ jobs:
         id: unit2
         run: |
           cd patterns/1
-          terraform test
+          terraform test -v
