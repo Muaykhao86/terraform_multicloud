@@ -1,4 +1,4 @@
-name: "Terraform"
+name: "Terraform PR Check"
 
 on:
   pull_request:
@@ -8,8 +8,8 @@ on:
       - patterns/**
 
 jobs:
-  terraform:
-    name: "Terraform"
+  terraform_fmt_check:
+    name: "Terraform FMT Check"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,9 +17,29 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-          
-      - name: Terraform Format
+
+      - name: Run Terraform Format Check
         id: fmt
         run: |
           cd patterns
           terraform fmt -recursive -check
+
+      # - name: Run Terraform Validation Check
+      #   id: validate
+      #   run: |
+      #     cd patterns/1
+      #     terraform init -backend=false
+      #     terraform validate
+
+      - name: Run Terraform unit test Check
+        id: unit
+        run: |
+          cd patterns/1
+          terraform validate
+          
+      - name: Run Terraform unit test Check
+        id: unit2
+        run: |
+          cd patterns/1
+          terraform init -backend=false
+          terraform validate
