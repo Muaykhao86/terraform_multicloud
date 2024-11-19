@@ -8,7 +8,7 @@ resource "google_compute_instance" "vm" {
   machine_type            = var.machine_type
   zone                    = var.zone
   tags                    = [var.env_tag]
-  metadata_startup_script = file("../scripts/startup.sh")
+  #metadata_startup_script = file("../scripts/startup.sh")
 
   boot_disk {
     initialize_params {
