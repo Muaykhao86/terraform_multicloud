@@ -1,4 +1,4 @@
-module "aws {
+module "aws" {
   source = "./modules/aws/aws_instance"
   # selects whether the module is deployed
   count     = var.enable_aws ? 1 : 0
