@@ -24,19 +24,19 @@ jobs:
 
       - name: Run Terraform Format Check
         id: FMT
-        working-directory: $TERRAFORM_DIR
+        working-directory: ${{ env.TERRAFORM_DIR }}
         run: terraform fmt -recursive -check
         
       - name: Run Terraform Init
-        working-directory: $CCOE_DIR
+        working-directory: ${{ env.CCOE_DIR }}
         run: terraform init -backend=false
       
       - name: Run Terraform Validation Check
         id: Validate
-        working-directory: $CCOE_DIR
+        working-directory: ${{ env.CCOE_DIR }}
         run: terraform validate
      
       - name: Run Terraform Unit Tests 
         id: Unit_tests
-        working-directory: $CCOE_DIR
+        working-directory: ${{ env.CCOE_DIR }}
         run: terraform test
