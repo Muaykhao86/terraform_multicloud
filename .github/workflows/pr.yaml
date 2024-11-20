@@ -40,3 +40,4 @@ jobs:
         id: Unit_tests
         working-directory: ${{ env.CCOE_DIR }}
         run: terraform test
+
