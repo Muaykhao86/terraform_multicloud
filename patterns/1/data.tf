@@ -1,5 +1,5 @@
-data "aws_ami" "his" {
-  most_recent = true
+data "aws_ami" "this" {
+    most_recent = true
   owners      = ["amazon"]
   filter {
     name   = "architecture"
