@@ -1,4 +1,4 @@
-data "aws_ami" "this" {
+data "ws_ami" "this" {
   most_recent = true
   owners      = ["amazon"]
   filter {
