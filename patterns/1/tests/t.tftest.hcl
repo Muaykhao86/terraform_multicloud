@@ -13,7 +13,7 @@ run "S3_Bucket_Unit_Tests_With_Mock_Providers" {
   assert {
     condition = length([
       for _, mod in module.aws : mod.instance_name
-    ]) > 0
+    ]) > 2
     error_message = "Simple test"
   }
 }
