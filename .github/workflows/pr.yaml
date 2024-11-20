@@ -7,9 +7,13 @@ on:
     paths:
       - patterns/**
 
+env:
+  TERRAFORM_DIR: patterns
+  CCOE_DIR: patterns/1
+
 jobs:
-  terraform_fmt_check:
-    name: "Terraform FMT Check"
+  init:
+    name: "Initialize"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,20 +23,20 @@ jobs:
         uses: hashicorp/setup-terraform@v3
 
       - name: Run Terraform Format Check
-        id: fmt
-        run: |
-          cd patterns
-          terraform fmt -recursive -check
-
+        id: FMT
+        working-directory: $TERRAFORM_DIR
+        run: terraform fmt -recursive -check
+        
+      - name: Run Terraform Init
+        working-directory: $CCOE_DIR
+        run: terraform init -backend=false
+      
       - name: Run Terraform Validation Check
-        id: validate
-        run: |
-          cd patterns/1
-          terraform init -backend=false
-          terraform validate
-          
-      - name: Run Terraform unit test Check
-        id: unit2
-        run: |
-          cd patterns/1
-          terraform test
+        id: Validate
+        working-directory: $CCOE_DIR
+        run: terraform validate
+     
+      - name: Run Terraform Unit Tests 
+        id: Unit_tests
+        working-directory: $CCOE_DIR
+        run: terraform test
