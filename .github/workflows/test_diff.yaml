@@ -39,8 +39,8 @@ jobs:
 
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
-
-          echo "changed_files=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_OUTPUT
+          echo $CHANGED_FILES_SINGLE_LINE"
+          echo "CHANGED_FILES=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_OUTPUT
 
       # Filter relevant changes
       - name: Check for Relevant Changes
