@@ -4,8 +4,8 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - patterns/**
+    # paths:
+    #   - patterns/**
 
 env:
   TERRAFORM_DIR: patterns
