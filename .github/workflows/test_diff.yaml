@@ -18,7 +18,7 @@ jobs:
       - name: Fetch Base Branch
         run: |
           echo "Fetching base branch: ${{ github.event.pull_request.base.ref }}"
-          git fetch origin ${{ github.event.pull_request.base.ref }}
+          # git fetch origin ${{ github.event.pull_request.base.ref }}
 
       # Show changed files
       - name: Determine Changed Files
@@ -40,14 +40,16 @@ jobs:
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
           echo "$CHANGED_FILES_SINGLE_LINE"
-          echo "CHANGED_FILES=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_OUTPUT
+          echo "TEST_CHANGED_FILES=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_OUTPUT
 
       # Filter relevant changes
       - name: Check for Relevant Changes
         id: check-path
         run: |
           echo "Filtering files for the path: automation/terraform/test/"
-          echo "$CHANGED_FILES"  # Print all changed files
+          echo "$CHANGED_FILES_SINGLE_LINE"
+
+          echo "$TEST_CHANGED_FILES"  # Print all changed files
           # CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           
           if ! echo "$CHANGED_FILES" | grep -q '^automation/terraform/test/'; then
