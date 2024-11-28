@@ -37,15 +37,15 @@ jobs:
           echo "$CHANGED_FILES"
 
           # Set changed files as output so other steps can use it
-          echo "::set-output name=changed_files::$CHANGED_FILES"
+          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       # Filter relevant changes
       - name: Check for Relevant Changes
         id: check-path
         run: |
           echo "Filtering files for the path: automation/terraform/test/"
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           echo "$CHANGED_FILES"  # Print all changed files
+          # CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
           
           if ! echo "$CHANGED_FILES" | grep -q '^automation/terraform/test/'; then
             echo "No relevant changes found for 'automation/terraform/test/'. Skipping job."
