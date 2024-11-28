@@ -19,11 +19,18 @@ jobs:
       - name: Check baseref
         run: echo  ${{ github.base_ref }} 
     
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Check event1
+        run: echo  ${{ github.event }} 
+      
+      - name: Check event2
+        run: echo  ${{ github.event.pull_request.head.ref }} 
+      - name: Check event3
+        run: echo  ${{ github.event.pull_request.paths}} 
+      - name: Check event4
+        run: echo  ${{ github.event.pull_request.path }} 
 
-      - name: Check baseref2
-        run: echo  ${{ github.base_ref }} 
+      # - name: Checkout
+      #   uses: actions/checkout@v4
 
       # - name: Setup Terraform
       #   uses: hashicorp/setup-terraform@v3
