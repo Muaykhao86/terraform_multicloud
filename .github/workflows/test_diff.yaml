@@ -23,6 +23,7 @@ jobs:
       # Show changed files
       - name: Determine Changed Files
         id: diff
+        
         run: |
           echo "Base branch SHA: ${{ github.event.pull_request.base.sha }}"
           echo "Head branch SHA: ${{ github.event.pull_request.head.sha }}"
@@ -37,9 +38,9 @@ jobs:
           echo "$CHANGED_FILES"
 
           # Set changed files as output so other steps can use it
-          CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
+          # CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
 
-          echo "changed_files=$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "changed_files=${CHANGED_FILES}" >> $GITHUB_OUTPUT
 
       # Filter relevant changes
       - name: Check for Relevant Changes
