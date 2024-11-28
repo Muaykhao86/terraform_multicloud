@@ -1,0 +1,67 @@
+name: PR Workflow
+
+on:
+  pull_request:
+
+jobs:
+  diff-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch the full commit history
+
+      # Fetch the base branch (main or the target branch)
+      - name: Fetch Base Branch
+        run: |
+          echo "Fetching base branch: ${{ github.event.pull_request.base.ref }}"
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+
+      # Show changed files
+      - name: Determine Changed Files
+        id: diff
+        run: |
+          echo "Base branch SHA: ${{ github.event.pull_request.base.sha }}"
+          echo "Head branch SHA: ${{ github.event.pull_request.head.sha }}"
+          
+          echo "Comparing changes between:"
+          echo "Base branch: origin/${{ github.event.pull_request.base.ref }} (SHA: ${{ github.event.pull_request.base.sha }})"
+          echo "Head branch: ${{ github.event.pull_request.head.sha }}"
+          
+          # Use git diff to list changed files
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          # Set changed files as output so other steps can use it
+          echo "::set-output name=changed_files::$CHANGED_FILES"
+
+      # Filter relevant changes
+      - name: Check for Relevant Changes
+        id: check-path
+        run: |
+          echo "Filtering files for the path: automation/terraform/test/"
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "$CHANGED_FILES"  # Print all changed files
+          
+          if ! echo "$CHANGED_FILES" | grep -q '^automation/terraform/test/'; then
+            echo "No relevant changes found for 'automation/terraform/test/'. Skipping job."
+            echo "skip=true" >> $GITHUB_ENV
+          else
+            echo "Relevant changes found. Proceeding with tests."
+          fi
+
+      # Run tests only if relevant changes were found
+      - name: Run Tests
+        if: env.skip != 'true'
+        run: |
+          echo "Running tests for relevant changes."
+          ./run-tests.sh
+
+      # Skip message
+      - name: Skip Job
+        if: env.skip == 'true'
+        run: echo "No relevant changes detected. Job skipped."
