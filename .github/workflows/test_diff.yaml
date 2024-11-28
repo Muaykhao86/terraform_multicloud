@@ -14,12 +14,6 @@ jobs:
         with:
           fetch-depth: 0  # Fetch the full commit history
 
-      # # Fetch the base branch (main or the target branch)
-      # - name: Fetch Base Branch
-      #   run: |
-      #     echo "Fetching base branch: ${{ github.event.pull_request.base.ref }}"
-      #     # git fetch origin ${{ github.event.pull_request.base.ref }}
-
       # Show changed files
       - name: Determine Changed Files
         id: diff
@@ -39,27 +33,21 @@ jobs:
 
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
-          echo "$CHANGED_FILES_SINGLE_LINE"
-          echo "cf=CHANGED_FILES" >> $GITHUB_OUTPUT
-          echo "cfl=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_OUTPUT
+          echo "cfl=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
 
       # Filter relevant changes
       - name: Check for Relevant Changes
         env: 
-          test: howdy
-          cf: ${{ steps.diff.outputs.cf }}
-          changed_files_one_line: ${{ steps.diff.outputs.cfl }}
+          changed_files_one_line: ${{ env.cfl }}
         id: check-path
         run: |
-          echo "Filtering files for the path: automation/terraform/test/"
+          search_dir = ".github/workflows"
+          echo "Filtering files for the path: $search_dir"
           echo "$changed_files_one_line"
-          echo $test
-          echo ${{ steps.diff.outputs.cfl }}
 
-          # CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
-          
-          if ! echo "$CHANGED_FILES" | grep -q '^.github/workflows'; then
-            echo "No relevant changes found for '.github/workflows'. Skipping job."
+          echo "Testing $changed_files_one_line for $search_dir"
+          if ! echo "$changed_files_one_line" | grep -q "$search_dir"; then
+            echo "No relevant changes found for $search_dir. Skipping job."
             echo "skip=true" >> $GITHUB_ENV
           else
             echo "Relevant changes found. Proceeding with tests."
