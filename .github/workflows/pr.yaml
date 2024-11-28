@@ -25,9 +25,7 @@ jobs:
       - name: Check event2
         run: echo  ${{ github.event.pull_request.head.ref }} 
       - name: Check event3
-        run: echo  ${{ github.event.pull_request.paths}} 
-      - name: Check event4
-        run: echo  ${{ github.event.pull_request.path }} 
+        run: echo  ${{ github.event.before }}
 
       # - name: Checkout
       #   uses: actions/checkout@v4
