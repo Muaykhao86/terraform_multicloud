@@ -65,10 +65,10 @@ jobs:
           echo "Testing $comma_seperated_files for $search_directory"
           if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
             echo "No relevant changes found for $search_directory. Skipping job."
-            echo "files_changed=true" >> $GITHUB_OUTPUT
+            echo "files_changed=false" >> $GITHUB_OUTPUT
           else
             echo "Relevant changes found. Proceeding with tests."
-            echo "files_changed=false" >> $GITHUB_OUTPUT
+            echo "files_changed=true" >> $GITHUB_OUTPUT
           fi
 
   # testing:
