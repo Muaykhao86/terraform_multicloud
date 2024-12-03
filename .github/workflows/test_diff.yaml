@@ -27,10 +27,10 @@ jobs:
         id: diff
         
         run: |
-          BASE_BRANCH_SHA = ${{ github.event.pull_request.base.sha }}
-          BASE_BRANCH_REF = ${{ github.event.pull_request.base.ref }}
-          HEAD_BRANCH_SHA = ${{ github.event.pull_request.head.sha }}
-          HEAD_BRANCH_REF = ${{ github.event.pull_request.head.ref }}
+          BASE_BRANCH_SHA=${{ github.event.pull_request.base.sha }}
+          BASE_BRANCH_REF=${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH_SHA=${{ github.event.pull_request.head.sha }}
+          HEAD_BRANCH_REF=${{ github.event.pull_request.head.ref }}
           
           echo "Base branch SHA: $BASE_BRANCH_SHA"
           echo "Head branch SHA: $HEAD_BRANCH_SHA"
