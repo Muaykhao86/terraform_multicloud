@@ -23,14 +23,14 @@ jobs:
           echo "Result == ${{ needs.test_diff.outputs.files_changed }}"
       # Run tests only if relevant changes were found
       - name: Run Tests
-        if: ${{ needs.test_diff.outputs.files_changed }} == true
+        if: ${{ needs.test_diff.outputs.files_changed }} == "true"
         run: |
           echo "${{ needs.test_diff.outputs.files_changed }}"
           echo "Running tests for relevant changes."
 
       # Skip message
       - name: Skip Job
-        if: ${{ needs.test_diff.outputs.files_changed }} == false
+        if: ${{ needs.test_diff.outputs.files_changed }} == "false"
         run: |
           echo "${{ needs.test_diff.outputs.files_changed }}"
           echo "No relevant changes detected. Job skipped."
@@ -38,7 +38,7 @@ jobs:
   example_conditional:
     runs-on: ubuntu-latest
     needs: test_diff
-    if: ${{ needs.test_diff.outputs.files_changed }} == true
+    if: ${{ needs.test_diff.outputs.files_changed }} == "true"
     steps:
       # Run tests only if relevant changes were found
       - name: Run More Tests
