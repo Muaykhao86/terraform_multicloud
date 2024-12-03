@@ -1,11 +1,18 @@
 name: PR Workflow
 
 on:
-  pull_request:
+  workflow_call: 
+    inputs: 
+      dir: 
+        description: "The directory to check for changes"
+        default: "./patterns"
+    
 
 jobs:
   diff-check:
     runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check-changes.outputs.changes }} 
 
     steps:
       # Checkout the code
@@ -19,15 +26,20 @@ jobs:
         id: diff
         
         run: |
-          echo "Base branch SHA: ${{ github.event.pull_request.base.sha }}"
-          echo "Head branch SHA: ${{ github.event.pull_request.head.sha }}"
+          BASE_BRANCH_SHA = ${{ github.event.pull_request.base.sha }}
+          BASE_BRANCH_REF = ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH_SHA = ${{ github.event.pull_request.head.sha }}
+          HEAD_BRANCH_REF = ${{ github.event.pull_request.head.ref }}
+          
+          echo "Base branch SHA: $BASE_BRANCH_SHA"
+          echo "Head branch SHA: $HEAD_BRANCH_SHA"
           
           echo "Comparing changes between:"
-          echo "Base branch: origin/${{ github.event.pull_request.base.ref }} (SHA: ${{ github.event.pull_request.base.sha }})"
-          echo "Head branch: ${{ github.event.pull_request.head.sha }}"
+          echo "Base branch: origin/$BASE_BRANCH_REF (SHA: $BASE_BRANCH_SHA)"
+          echo "Head branch: $HEAD_BRANCH_SHA"
           
           # Use git diff to list changed files
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
           echo "Changed files:"
           echo "$CHANGED_FILES"
 
@@ -40,7 +52,7 @@ jobs:
         env: 
           changed_files_one_line: ${{ env.cfl }}
           search_dir:  ".github/workflows"
-        id: check-path
+        id: check-changes
         run: |
           echo "Filtering files for the path: $search_dir"
           echo "$changed_files_one_line"
@@ -48,19 +60,20 @@ jobs:
           echo "Testing $changed_files_one_line for $search_dir"
           if ! echo "$changed_files_one_line" | grep -q "$search_dir"; then
             echo "No relevant changes found for $search_dir. Skipping job."
-            echo "run_tests=true" >> $GITHUB_ENV
+            echo "changes=true" >> $GITHUB_OUTPUTS
           else
             echo "Relevant changes found. Proceeding with tests."
+            echo "changes=false" >> $GITHUB_OUTPUTS
           fi
 
-  testing:
-    if: ${{ env.run_tests }} == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      # Run tests only if relevant changes were found
-      - name: Run Tests
-        run: |
-          echo "Running tests for relevant changes."
+  # testing:
+  #   if: ${{ env.run_tests }} == 'true'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # Run tests only if relevant changes were found
+  #     - name: Run Tests
+  #       run: |
+  #         echo "Running tests for relevant changes."
 
       # # Skip message
       # - name: Skip Job
