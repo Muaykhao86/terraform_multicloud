@@ -7,13 +7,17 @@ on:
         description: "The directory to check for changes"
         type: string
         default: "./patterns"
+    outputs:
+      files_changed: 
+        description: "Have there been any changes to files in the provided dir?"
+        value: ${{ jobs.check-changes.outputs.changes }}
     
 
 jobs:
   diff-check:
     runs-on: ubuntu-latest
     outputs:
-      files_changed: ${{ steps.check-changes.outputs.changes }} 
+      changes: ${{ steps.check-changes.outputs.changes }} 
 
     steps:
       # Checkout the code
@@ -46,21 +50,21 @@ jobs:
 
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
-          echo "cfl=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
+          echo "csf=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
 
       # Filter relevant changes
       - name: Check for Relevant Changes
         env: 
-          changed_files_one_line: ${{ env.cfl }}
-          search_dir:  ${{ inputs.dir }}
+          comma_seperated_files: ${{ env.csf }}
+          search_directory:  ${{ inputs.dir }}
         id: check-changes
         run: |
-          echo "Filtering files for the path: $search_dir"
-          echo "$changed_files_one_line"
+          echo "Filtering files for the path: $search_directory"
+          echo "$comma_seperated_files"
 
-          echo "Testing $changed_files_one_line for $search_dir"
-          if ! echo "$changed_files_one_line" | grep -q "$search_dir"; then
-            echo "No relevant changes found for $search_dir. Skipping job."
+          echo "Testing $comma_seperated_files for $search_directory"
+          if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
+            echo "No relevant changes found for $search_directory. Skipping job."
             echo "changes=true" >> $GITHUB_OUTPUT
           else
             echo "Relevant changes found. Proceeding with tests."
