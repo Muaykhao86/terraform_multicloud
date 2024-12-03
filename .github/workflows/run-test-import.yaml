@@ -21,6 +21,8 @@ jobs:
       - name: result
         run: |
           echo "Result == ${{ needs.test_diff.outputs.files_changed }}"
+          echo ${{ needs.test_diff.outputs.files_changed }} == "true"
+          echo ${{ needs.test_diff.outputs.files_changed }} == "false"
       # Run tests only if relevant changes were found
       - name: Run Tests
         if: ${{ needs.test_diff.outputs.files_changed }} == "true"
