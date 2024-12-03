@@ -10,14 +10,14 @@ on:
     outputs:
       files_changed: 
         description: "Have there been any changes to files in the provided dir?"
-        value: ${{ jobs.check-changes.outputs.changes }}
+        value: ${{ jobs.dir-diff-check.outputs.files_changed }}
     
 
 jobs:
-  diff-check:
+  dir-diff-check:
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.check-changes.outputs.changes }} 
+      files_changed: ${{ steps.changes.outputs.files_changed }} 
 
     steps:
       # Checkout the code
@@ -57,7 +57,7 @@ jobs:
         env: 
           comma_seperated_files: ${{ env.csf }}
           search_directory:  ${{ inputs.dir }}
-        id: check-changes
+        id: changes
         run: |
           echo "Filtering files for the path: $search_directory"
           echo "$comma_seperated_files"
@@ -65,10 +65,10 @@ jobs:
           echo "Testing $comma_seperated_files for $search_directory"
           if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
             echo "No relevant changes found for $search_directory. Skipping job."
-            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "files_changed=true" >> $GITHUB_OUTPUT
           else
             echo "Relevant changes found. Proceeding with tests."
-            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "files_changed=false" >> $GITHUB_OUTPUT
           fi
 
   # testing:
