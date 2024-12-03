@@ -5,6 +5,7 @@ on:
     inputs: 
       dir: 
         description: "The directory to check for changes"
+        type: string
         default: "./patterns"
     
 
