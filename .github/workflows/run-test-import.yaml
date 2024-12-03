@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: result
         run: |
-          echo "${{ needs.test_diff.outputs "
+          echo "${{ needs.test_diff.outputs }}"
           echo "${{ needs.test_diff.outputs.files_changed }}"
       # Run tests only if relevant changes were found
       - name: Run Tests
