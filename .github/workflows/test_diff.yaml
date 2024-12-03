@@ -13,7 +13,7 @@ jobs:
   diff-check:
     runs-on: ubuntu-latest
     outputs:
-      changed: ${{ steps.check-changes.outputs.changes }} 
+      files_changed: ${{ steps.check-changes.outputs.changes }} 
 
     steps:
       # Checkout the code
