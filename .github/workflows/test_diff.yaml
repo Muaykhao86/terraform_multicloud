@@ -34,7 +34,7 @@ jobs:
           export TERM=xterm-color
           normal="\033[0m"
           # red="\033[31m"
-          green="\033[32m"
+          green="\033[0;32m"
           BASE_BRANCH_SHA=${{ github.event.pull_request.base.sha }}
           BASE_BRANCH_REF=${{ github.event.pull_request.base.ref }}
           HEAD_BRANCH_SHA=${{ github.event.pull_request.head.sha }}
