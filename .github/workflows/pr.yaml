@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       terraform_dir: ${{ env.TERRAFORM_DIR }}
+      ccoe_dir: ${{ env.CCOE_DIR }}
+    steps:
+      - run: echo "Exposing env vars"
 
   test_diff:
     uses: ./.github/workflows/test_diff.yaml
