@@ -13,7 +13,7 @@ jobs:
   test_diff:
     uses: ./.github/workflows/test_diff.yaml
     with: 
-        dir: "modules"
+        dir: ${{ env.TERRAFORM_DIR }}
  
   run_tests:
     name: "Run Terraform Tests"
