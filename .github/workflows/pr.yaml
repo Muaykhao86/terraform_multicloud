@@ -10,10 +10,17 @@ env:
   CCOE_DIR: patterns/1
 
 jobs:
+  vars:
+    name: "Compute Variables"
+    runs-on: ubuntu-latest
+    outputs:
+      terraform_dir: ${{ env.TERRAFORM_DIR }}
+
   test_diff:
     uses: ./.github/workflows/test_diff.yaml
+    needs: vars
     with: 
-        dir: ${{ env.TERRAFORM_DIR }}
+        dir: ${{ needs.vars.outputs.terraform_dir }}
  
   run_tests:
     name: "Run Terraform Tests"
