@@ -49,12 +49,12 @@ jobs:
 
   skipped:
       name: "Tests Skipped"
-        runs-on: ubuntu-latest
-        needs: test_diff
-        if: ${{ needs.test_diff.outputs.files_changed == 'false' }}
+      runs-on: ubuntu-latest
+      needs: test_diff
+      if: ${{ needs.test_diff.outputs.files_changed == 'false' }}
       steps:
         - name: Dont Run Terraform Unit Tests 
-            id: Unit_tests
-            run: echo "NO TESTS TO RUN!"
+          id: Unit_tests
+          run: echo "NO TESTS TO RUN!"
       
 
