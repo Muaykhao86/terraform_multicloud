@@ -2,10 +2,8 @@ name: "Terraform PR Check"
 
 on:
   pull_request:
-    branches:
-      - main
-    # paths:
-    #   - patterns/**
+      branches:
+        - main
 
 env:
   TERRAFORM_DIR: patterns
