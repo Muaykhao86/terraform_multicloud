@@ -12,7 +12,7 @@ jobs:
   test_diff:
     uses: ./.github/workflows/test_diff.yaml
     with: 
-      dir: "./modules"
+      dir: "modules"
 
   testing:
     runs-on: ubuntu-latest
