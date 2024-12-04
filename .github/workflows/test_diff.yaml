@@ -1,4 +1,4 @@
-name: PR Workflow
+name: Directory File Change Check
 
 on:
   workflow_call: 
@@ -9,12 +9,12 @@ on:
         default: "example/folder"
     outputs:
       files_changed: 
-        description: "Indicates if there been any changes to files in the provided dir"
+        description: "Indicates if there have been any changes to files in the provided directory"
         value: ${{ jobs.dir-diff-check.outputs.files_changed }}
     
 
 jobs:
-  dir-diff-check:
+  dir-file-check:
     runs-on: ubuntu-latest
     outputs:
       files_changed: ${{ steps.changes.outputs.files_changed }} 
@@ -29,11 +29,11 @@ jobs:
       # Show changed files
       - name: Determine Changed Files
         id: diff
-        
         run: |
           normal="\033[0m"
           green="\033[0;32m"
           yellow="\033[0;33m"
+          
           BASE_BRANCH_SHA=${{ github.event.pull_request.base.sha }}
           BASE_BRANCH_REF=${{ github.event.pull_request.base.ref }}
           HEAD_BRANCH_SHA=${{ github.event.pull_request.head.sha }}
@@ -45,19 +45,19 @@ jobs:
           
           # Use git diff to list changed files
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
-          echo -e "${green} Changed files: ${normal}"
+          echo -e "${green}Changed files:${normal}"
           echo "$CHANGED_FILES"
 
-          # Set changed files as output so other steps can use it
+          # Set changed files as output in a single line so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
           echo "csf=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
 
-      # Filter relevant changes
+      # Filter for changes in directory
       - name: Check for Relevant Changes
+        id: changes
         env: 
           comma_seperated_files: ${{ env.csf }}
           search_directory:  ${{ inputs.dir }}
-        id: changes
         run: |
           normal="\033[0m"
           green="\033[0;32m"
@@ -65,10 +65,10 @@ jobs:
           echo -e "${green}Filtering files for the path: ${normal}$search_directory"
           
           if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
-            echo -e "${green} No changes found. ${normal}"
+            echo -e "${green}No changes found in ${normal}$search_directory."
             echo "files_changed=false" >> $GITHUB_OUTPUT
           else
-            echo -e "${green} Changes found. ${normal}"
+            echo -e "${green}Changes found in ${normal}$search_directory."
             echo "files_changed=true" >> $GITHUB_OUTPUT
           fi
 
