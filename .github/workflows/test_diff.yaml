@@ -6,10 +6,10 @@ on:
       dir: 
         description: "The directory to check for changes"
         type: string
-        default: "./patterns"
+        default: "example/folder"
     outputs:
       files_changed: 
-        description: "Have there been any changes to files in the provided dir?"
+        description: "Indicates if there been any changes to files in the provided dir"
         value: ${{ jobs.dir-diff-check.outputs.files_changed }}
     
 
@@ -31,22 +31,22 @@ jobs:
         id: diff
         
         run: |
+          normal="\033[0m"
+          # red="\033[31m"
+          green="\033[32m"
           BASE_BRANCH_SHA=${{ github.event.pull_request.base.sha }}
           BASE_BRANCH_REF=${{ github.event.pull_request.base.ref }}
           HEAD_BRANCH_SHA=${{ github.event.pull_request.head.sha }}
           HEAD_BRANCH_REF=${{ github.event.pull_request.head.ref }}
           
-          echo "Base branch SHA: $BASE_BRANCH_SHA"
-          echo "Head branch SHA: $HEAD_BRANCH_SHA"
-          
           echo "Comparing changes between:"
           echo "Base branch: origin/$BASE_BRANCH_REF (SHA: $BASE_BRANCH_SHA)"
-          echo "Head branch: $HEAD_BRANCH_SHA"
+          echo "Head branch: origin/$HEAD_BRANCH_REF (SHA: $HEAD_BRANCH_SHA)"
           
           # Use git diff to list changed files
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
           echo "Changed files:"
-          echo "$CHANGED_FILES"
+          echo "${green}$CHANGED_FILES${normal}"
 
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
