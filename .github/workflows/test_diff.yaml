@@ -45,7 +45,7 @@ jobs:
           
           # Use git diff to list changed files
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
-          echo -e "${green}Changed files:${normal}"
+          echo -e "${green} Changed files: ${normal}"
           echo "$CHANGED_FILES"
 
           # Set changed files as output so other steps can use it
@@ -62,13 +62,13 @@ jobs:
           normal="\033[0m"
           green="\033[0;32m"
           
-          echo -e "${green}Filtering files for the path: ${normal}$comma_seperated_files"
+          echo -e "${green}Filtering files for the path: ${normal}$search_directory"
           
           if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
-            echo -e "${green}No relevant changes found for $search_directory. Skipping job.${normal}"
+            echo -e "${green} No changes found. ${normal}"
             echo "files_changed=false" >> $GITHUB_OUTPUT
           else
-            echo -e "${green}Relevant changes found. Proceeding with tests.${normal}"
+            echo -e "${green} Changes found. ${normal}"
             echo "files_changed=true" >> $GITHUB_OUTPUT
           fi
 
