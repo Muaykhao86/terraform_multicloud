@@ -1,7 +1,7 @@
 name: Reusable workflow example
 
 on:
-  pull_request:
+  workflow_dispatch:
     # types: 
     #   - opened
     #   - reopend
