@@ -38,7 +38,7 @@ jobs:
           HEAD_BRANCH_SHA=${{ github.event.pull_request.head.sha }}
           HEAD_BRANCH_REF=${{ github.event.pull_request.head.ref }}
           
-          echo "${green}Comparing changes between:${normal}"
+          echo -e "${green}Comparing changes between:${normal}"
           echo "Base branch: $BASE_BRANCH_REF (SHA: $BASE_BRANCH_SHA)"
           echo "Head branch: $HEAD_BRANCH_REF (SHA: $HEAD_BRANCH_SHA)"
           
@@ -58,13 +58,13 @@ jobs:
           search_directory:  ${{ inputs.dir }}
         id: changes
         run: |
-          echo "${green}Filtering files for the path: ${normal}$comma_seperated_files"
+          echo -e "${green}Filtering files for the path: ${normal}$comma_seperated_files"
           
           if ! echo "$comma_seperated_files" | grep -q "$search_directory"; then
-            echo "${green}No relevant changes found for $search_directory. Skipping job.${normal}"
+            echo -e "${green}No relevant changes found for $search_directory. Skipping job.${normal}"
             echo "files_changed=false" >> $GITHUB_OUTPUT
           else
-            echo "${green}Relevant changes found. Proceeding with tests.${normal}"
+            echo -e "${green}Relevant changes found. Proceeding with tests.${normal}"
             echo "files_changed=true" >> $GITHUB_OUTPUT
           fi
 
