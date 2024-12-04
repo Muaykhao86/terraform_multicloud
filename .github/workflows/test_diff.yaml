@@ -40,8 +40,8 @@ jobs:
           HEAD_BRANCH_REF=${{ github.event.pull_request.head.ref }}
           
           echo -e "${green}Comparing changes between:${normal}"
-          echo "Base branch: ${yellow}$BASE_BRANCH_REF${normal} (SHA: $BASE_BRANCH_SHA)"
-          echo "Head branch: ${yellow}$HEAD_BRANCH_REF${normal} (SHA: $HEAD_BRANCH_SHA)"
+          echo -e "Base branch: ${yellow}$BASE_BRANCH_REF${normal} (SHA: $BASE_BRANCH_SHA)"
+          echo -e "Head branch: ${yellow}$HEAD_BRANCH_REF${normal} (SHA: $HEAD_BRANCH_SHA)"
           
           # Use git diff to list changed files
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
