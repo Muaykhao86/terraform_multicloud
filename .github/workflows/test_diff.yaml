@@ -45,8 +45,8 @@ jobs:
           
           # Use git diff to list changed files
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
-          echo "Changed files:"
-          echo "${green}$CHANGED_FILES${normal}"
+          echo "${green}Changed files:${normal}"
+          echo "$CHANGED_FILES"
 
           # Set changed files as output so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
