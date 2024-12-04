@@ -10,7 +10,7 @@ on:
     outputs:
       files_changed: 
         description: "Indicates if there have been any changes to files in the provided directory"
-        value: ${{ jobs.dir-diff-check.outputs.files_changed }}
+        value: ${{ jobs.dir-file-check.outputs.files_changed }}
     
 
 jobs:
