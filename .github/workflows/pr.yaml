@@ -23,8 +23,8 @@ jobs:
     steps:
       - name: print
         run: |
-          echo ${{ needs.test_diff.outputs.files_changed}}
-          echo ${{ needs.test_diff.outputs.extension_changed}}
+          echo "file: ${{ needs.test_diff.outputs.files_changed}}"
+          echo "ext: ${{ needs.test_diff.outputs.extension_changed}}"
  
   run_tests:
     name: "Run Terraform Tests"
