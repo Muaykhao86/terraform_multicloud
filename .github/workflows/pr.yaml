@@ -57,5 +57,14 @@ jobs:
   #       - name: Dont Run Terraform Unit Tests 
   #         id: Unit_tests
   #         run: echo "NO TESTS TO RUN!"
-      
+
+  ext:
+      name: "EXT"
+      runs-on: ubuntu-latest
+      needs: test_diff
+      if: ${{ needs.test_diff.outputs.extension_changed == 'false' }}
+      steps:
+        - name: Ext changed
+          id: ext
+          run: echo "extension type changed!"
 
