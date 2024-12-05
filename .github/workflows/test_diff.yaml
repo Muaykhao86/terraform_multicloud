@@ -8,7 +8,7 @@ on:
         type: string
         default: "example/folder/"
       extension: 
-        description: "The type of file extension to check for, please do not include the dot. EG yaml"
+        description: "The type of file extension to check for, please do not include the dot. EG - yaml"
         type: string
         default: "any"
     outputs:
@@ -74,8 +74,6 @@ jobs:
         env: 
           comma_separated_files: ${{ env.csf }}
           search_directory:  ${{ inputs.dir }}
-          unique_extensions: ${{ env.ext }}
-          search_extension: ${{ inputs.type }}
         run: |
           normal="\033[0m"
           green="\033[0;32m"
