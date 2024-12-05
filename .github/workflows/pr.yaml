@@ -14,6 +14,7 @@ jobs:
     uses: ./.github/workflows/test_diff.yaml
     with: 
         dir: "modules"
+        extension: "yaml"
  
   run_tests:
     name: "Run Terraform Tests"
