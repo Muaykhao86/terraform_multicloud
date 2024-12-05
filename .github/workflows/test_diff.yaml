@@ -62,7 +62,8 @@ jobs:
           # Set changed files as output in a single line so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
           echo "csf=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
-          echo "ext=$UNIQUE_EXTENSIONS" >> $GITHUB_ENV
+          CHANGED_EXTENSIONS_SINGLE_LINE=$(echo "$UNIQUE_EXTENSIONS" | tr '\n' ',')  # Converts newlines to commas
+          echo "ext=$CHANGED_EXTENSIONS_SINGLE_LINE" >> $GITHUB_ENV
 
       # Filter for changes in directory
       - name: Check for Directory Changes
