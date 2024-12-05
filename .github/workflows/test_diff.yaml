@@ -4,11 +4,11 @@ on:
   workflow_call: 
     inputs: 
       dir: 
-        description: "The directory to check for changes, please make sure to append a trailing slash"
+        description: "The directory to check for changes, please make sure to append a trailing slash."
         type: string
         default: "example/folder/"
       extension: 
-        description: "The type of file extension to check for"
+        description: "The type of file extension to check for, please do not include the dot. EG yaml"
         type: string
         default: "any"
     outputs:
@@ -68,6 +68,7 @@ jobs:
       # Filter for changes in directory
       - name: Check for Directory Changes
         id: directory_changes
+        if: ${{ inputs.dir != 'example/folder/' }}
         env: 
           comma_separated_files: ${{ env.csf }}
           search_directory:  ${{ inputs.dir }}
