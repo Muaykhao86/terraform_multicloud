@@ -62,7 +62,7 @@ jobs:
       name: "EXT"
       runs-on: ubuntu-latest
       needs: test_diff
-      if: ${{ needs.test_diff.outputs.extension_changed == 'false' }}
+      if: ${{ needs.test_diff.outputs.extension_changed == 'true' }}
       steps:
         - name: Ext changed
           id: ext
