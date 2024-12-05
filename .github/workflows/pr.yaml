@@ -13,7 +13,17 @@ jobs:
   test_diff:
     uses: ./.github/workflows/test_diff.yaml
     with: 
-        dir: "modules"
+        dir: "patterns/"
+
+  check_output:
+    name: "check output"
+    runs-on: ubuntu-latest
+    needs: test_diff
+    steps:
+      - name: print
+        run: |
+          echo "file: ${{ needs.test_diff.outputs.files_changed}}"
+          echo "ext: ${{ needs.test_diff.outputs.extension_changed}}"
  
   run_tests:
     name: "Run Terraform Tests"
@@ -56,5 +66,14 @@ jobs:
   #       - name: Dont Run Terraform Unit Tests 
   #         id: Unit_tests
   #         run: echo "NO TESTS TO RUN!"
-      
+
+  ext:
+      name: "EXT"
+      runs-on: ubuntu-latest
+      needs: test_diff
+      if: ${{ needs.test_diff.outputs.extension_changed == 'true' }}
+      steps:
+        - name: Ext changed
+          id: ext
+          run: echo "extension type changed!"
 
