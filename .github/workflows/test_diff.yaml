@@ -54,11 +54,14 @@ jobs:
           CHANGED_FILES=$(git diff --name-only $BASE_BRANCH_SHA $HEAD_BRANCH_SHA)
           echo -e "${green}Changed files:${normal}"
           echo "$CHANGED_FILES"
+          
+          UNIQUE_EXTENSIONS=$(echo "$CHANGED_FILES" | sed "s/.*\.//" | sort -u)
+          echo -e "${green}Changed file extensions:${normal}"
+          echo "$UNIQUE_EXTENIONS"
 
           # Set changed files as output in a single line so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
           echo "csf=${CHANGED_FILES_SINGLE_LINE}" >> $GITHUB_ENV
-          UNIQUE_EXTENSIONS=$(echo "$CHANGED_FILES" | sed "s/.*\.//" | sort -u)
           echo "ext=$UNIQUE_EXTENSIONS" >> $GITHUB_ENV
 
       # Filter for changes in directory
