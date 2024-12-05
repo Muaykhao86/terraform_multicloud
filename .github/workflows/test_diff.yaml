@@ -25,7 +25,7 @@ jobs:
   dir-file-check:
     runs-on: ubuntu-latest
     outputs:
-      files_changed: ${{ steps.changes.outputs.files_changed }} 
+      files_changed: ${{ steps.file_changes.outputs.files_changed }} 
       extension_changed: ${{ steps.extension_changes.outputs.extension_changed }}
 
     steps:
