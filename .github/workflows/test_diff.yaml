@@ -57,7 +57,7 @@ jobs:
           
           UNIQUE_EXTENSIONS=$(echo "$CHANGED_FILES" | sed "s/.*\.//" | sort -u)
           echo -e "${green}Changed file extensions:${normal}"
-          echo "$UNIQUE_EXTENIONS"
+          echo "$UNIQUE_EXTENSIONS"
 
           # Set changed files as output in a single line so other steps can use it
           CHANGED_FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ',')  # Converts newlines to commas
