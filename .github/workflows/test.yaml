@@ -9,7 +9,7 @@ on:
 
 jobs:
   test_connection:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Should be automation-scheduler
         run: |
