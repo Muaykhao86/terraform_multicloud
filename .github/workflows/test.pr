@@ -1,0 +1,16 @@
+name: Deploy Resources
+on:
+  workflow_dispatch:
+    inputs:
+      role:
+        description: Role to assume
+        default: "deval"
+        type: string
+
+jobs:
+  test_connection:
+    runs-on: self-hosted
+    steps:
+      - name: Should be automation-scheduler
+        run: |
+            echo "${{ github.event.inputs.role }}"
